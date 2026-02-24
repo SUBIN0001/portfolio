@@ -255,17 +255,21 @@
             z-index: 0;
             /* behind sticky text (z-index: 10 via .hero-row) */
             pointer-events: none;
-            clip-path: inset(43% 43% round 2rem);
-            will-change: clip-path;
+
         }
 
-        #hero-img-wrap img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center top;
-            filter: brightness(0.72);
-            transform-origin: center center;
+        #hero-img-wrap {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 60vw;
+            height: 65vh;
+            transform: translate(-50%, -50%) scale(1);
+            border-radius: 2rem;
+            overflow: hidden;
+            z-index: 0;
+            pointer-events: none;
+            will-change: transform;
         }
 
         /* Hero text sits above the image */
@@ -758,7 +762,17 @@
                 scrub: true
             }
         });
-
+        gsap.to('#hero-img-wrap', {
+            scale: 2.8,
+            borderRadius: 0,
+            ease: "none",
+            scrollTrigger: {
+                trigger: "#hero",
+                start: "top top",
+                end: "bottom top",
+                scrub: true
+            }
+        });
         gsap.to('.hero-img', {
             scale: 1.08,        /* subtle inner zoom so it doesn't look static */
             ease: "none",
@@ -781,8 +795,8 @@
             scrollTrigger: {
                 trigger: '#hero',
                 start: 'top top',
-                end: 'center top', // halfway through 200vh = 1 viewport of scroll
-                scrub: 1.5           // smooth lag
+                end: 'center top',
+                scrub: 1.5
             }
         });
 
